@@ -7,6 +7,7 @@ Aplicação em Desenvolvimento - Construíndo um site de vendas de doces, brigad
 - [x] Criação do Layout fixo usando MUI.
 - [x] Customização do `Document` para renderização no servidor (SSR) [Para saber mais...](https://nextjs.org/docs/advanced-features/custom-document)
 - [x] Adicionando e Customizando Lista de Produtos.
+- [x] Paginas de Detalhes do Produto
 
 ## Getting Started
 

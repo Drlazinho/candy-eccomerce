@@ -5,13 +5,13 @@ import NextLink from 'next/link'
 import useStyles from '../utils/styles'
 import { mergeClasses } from '@material-ui/styles'
 
-export default function Layout({ children }) {
+export default function Layout({title, description, children }) {
   const styles = useStyles()
 
   return (
     <div>
       <Head>
-        <title>Candy Next</title>
+        <title>{title ? `${title} - Candy Next` : `Candy Next`}</title> {description && <meta name="description" content={description}></meta>}
       </Head>
       <AppBar position="static" className={styles.navbar}>
         <Toolbar>
