@@ -1,6 +1,9 @@
 import { makeStyles } from "@material-ui/core";
 
 const useStyles = makeStyles({
+  layoutColor:{
+    backgroundColor: '#FBF3DF',
+  },
   navbar:{
     backgroundColor: '#3600B3',
     '& a': {
@@ -17,6 +20,10 @@ const useStyles = makeStyles({
   },
   main: {
     minHeight: '80vh',
+  },
+  section: {
+    marginTop: 10,
+    marginBottom: 10,
   },
   footer: {
     backgroundColor: '#3600B3',
