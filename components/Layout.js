@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import Head from 'next/head'
 import {
   AppBar,
@@ -12,9 +12,14 @@ import {
 } from '@material-ui/core'
 import NextLink from 'next/link'
 import useStyles from '../utils/styles'
-import { mergeClasses } from '@material-ui/styles'
+import {Store} from '../utils/Store'
+import { Switch } from '@mui/material'
+import Cookies from 'js-cookie'
 
 export default function Layout({ title, description, children }) {
+  const {state, dispatch} = useContext(Store);
+  const {darkMode} = state;
+
   const theme = createTheme({
     typography: {
       h1: {
@@ -32,19 +37,26 @@ export default function Layout({ title, description, children }) {
       },
     },
     palette: {
-      type: 'light',
+      type: darkMode? 'dark' : 'light',
       primary: {
         main: '#f0c000'
       },
+      secondary: {
+        main: '#208080'
+      },
     },
-    secondary: {
-      main: '#208080'
-    }
   })
   const styles = useStyles()
 
+  // Função de trocar os modos dakr/light e guarda o status através dos Cookies
+  const darkModeChangeHandler = () => {
+    dispatch({type: darkMode? 'DARK_MODE_OFF' : 'DARK_MODE_ON'});
+    const newDarkMode = !darkMode;
+    Cookies.set('darkMode', newDarkMode ? 'ON' : 'OFF');
+  };
+
   return (
-    <div className={styles.layoutColor}>
+    <div>
       <Head>
         <title>{title ? `${title} - Candy Next` : `Candy Next`}</title>{' '}
         {description && <meta name="description" content={description}></meta>}
@@ -59,12 +71,15 @@ export default function Layout({ title, description, children }) {
               </Link>
             </NextLink>
             <div className={styles.grow}></div>
+            <div>
+              <Switch checked={darkMode} onChange={darkModeChangeHandler}></Switch>
             <NextLink href="/cart" passHref>
               <Link>Carrinho</Link>
             </NextLink>
             <NextLink href="/login" passHref>
               <Link>Login</Link>
             </NextLink>
+            </div>
           </Toolbar>
         </AppBar>
         <Container className={styles.main}>{children}</Container>
