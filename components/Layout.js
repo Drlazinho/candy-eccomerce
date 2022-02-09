@@ -13,8 +13,9 @@ import {
 import NextLink from 'next/link'
 import useStyles from '../utils/styles'
 import {Store} from '../utils/Store'
-import { Switch } from '@mui/material'
+// import { Switch } from '@mui/material'
 import Cookies from 'js-cookie'
+import MaterialUISwimych from './Switch'
 
 export default function Layout({ title, description, children }) {
   const {state, dispatch} = useContext(Store);
@@ -72,7 +73,7 @@ export default function Layout({ title, description, children }) {
             </NextLink>
             <div className={styles.grow}></div>
             <div>
-              <Switch checked={darkMode} onChange={darkModeChangeHandler}></Switch>
+              <MaterialUISwimych checked={darkMode} onChange={darkModeChangeHandler}></MaterialUISwimych>
             <NextLink href="/cart" passHref>
               <Link>Carrinho</Link>
             </NextLink>
