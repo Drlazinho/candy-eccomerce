@@ -11,6 +11,23 @@ Aplicação em Desenvolvimento - Construíndo um site de vendas de doces, brigad
 - [x] Adicionando Modo Escudo com armazenamento do status usando Cookies.
     - ~~~~js
       npm install js-cookies
+- [x] Connectar ao MongoDB
+    - ~~~~js
+      npm install mongoose
+    - Boas práticas de evitar erros de Promises por lentidão de internet ou qualquer outra coisa
+    ~~~~
+    try {
+    const db = await mongoose.connect(process.env.MONGODB_URI, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
+    console.log('new connection');
+    connection.isConnected = db.connections[0].readyState;
+  } catch (error) {
+    console.log(error);
+    process.exit(1);
+  } 
+    ~~~~
 
 ## Getting Started
 
