@@ -29,7 +29,8 @@ Aplicação em Desenvolvimento - Construíndo um site de vendas de doces, brigad
   } 
     ~~~~
 - [X] Fazendo API dos Produtos
-    - `install next-connect` - método pequeno de rotas e middleware, usado frequentemente em rotas API. [Link](https://www.npmjs.com/package/next-connect) 
+    - `install next-connect` - método pequeno de rotas e middleware, usado frequentemente em rotas API. [Link](https://www.npmjs.com/package/next-connect)
+- [X] Buscar Produto da API 
 
 ## Getting Started
 

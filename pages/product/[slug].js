@@ -7,21 +7,19 @@ import {
   Card,
 } from '@material-ui/core'
 import { Button } from '@mui/material'
-import { useRouter } from 'next/router'
 import React from 'react'
 import Layout from '../../components/Layout'
-import data from '../../utils/data'
 import NextLink from 'next/link'
 import Image from 'next/image'
 import useStyles from '../../utils/styles';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
+import Product from '../../models/Products';
+import db from '../../utils/db';
 
-export default function ProductScreen() {
-  const styles = useStyles()
+export default function ProductScreen(props) {
+  const {product} = props;
+  const styles = useStyles();
 
-  const router = useRouter()
-  const { slug } = router.query
-  const product = data.products.find(a => a.slug === slug)
   if (!product) {
     return <div>Produto Não Encontrado</div>
   }
@@ -102,4 +100,17 @@ export default function ProductScreen() {
       </Grid>
     </Layout>
   )
+}
+export async function getServerSideProps(context) {
+  const {params} = context;
+  const {slug} = params;
+
+  await db.connect();
+  const product = await Product.findOne({slug}).lean();
+  await db.disconnect();
+  return {
+    props: {
+      product: db.convertDocToObj(product),
+    },
+  };
 }
