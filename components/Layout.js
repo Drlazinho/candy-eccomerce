@@ -8,19 +8,19 @@ import {
   Link,
   createTheme,
   ThemeProvider,
-  CssBaseline
+  CssBaseline,
+  Badge
 } from '@material-ui/core'
 import NextLink from 'next/link'
 import useStyles from '../utils/styles'
-import {Store} from '../utils/Store'
+import { Store } from '../utils/Store'
 // import { Switch } from '@mui/material'
 import Cookies from 'js-cookie'
 import MaterialUISwimych from './Switch'
 
 export default function Layout({ title, description, children }) {
-  const {state, dispatch} = useContext(Store);
-  const {darkMode} = state;
-
+  const { state, dispatch } = useContext(Store)
+  const { darkMode, cart } = state
   const theme = createTheme({
     typography: {
       h1: {
@@ -35,26 +35,26 @@ export default function Layout({ title, description, children }) {
       },
       body1: {
         fontWeight: 'normal'
-      },
+      }
     },
     palette: {
-      type: darkMode? 'dark' : 'light',
+      type: darkMode ? 'dark' : 'light',
       primary: {
         main: '#f0c000'
       },
       secondary: {
         main: '#208080'
-      },
-    },
+      }
+    }
   })
   const styles = useStyles()
 
   // Função de trocar os modos dakr/light e guarda o status através dos Cookies
   const darkModeChangeHandler = () => {
-    dispatch({type: darkMode? 'DARK_MODE_OFF' : 'DARK_MODE_ON'});
-    const newDarkMode = !darkMode;
-    Cookies.set('darkMode', newDarkMode ? 'ON' : 'OFF');
-  };
+    dispatch({ type: darkMode ? 'DARK_MODE_OFF' : 'DARK_MODE_ON' })
+    const newDarkMode = !darkMode
+    Cookies.set('darkMode', newDarkMode ? 'ON' : 'OFF')
+  }
 
   return (
     <div>
@@ -63,7 +63,7 @@ export default function Layout({ title, description, children }) {
         {description && <meta name="description" content={description}></meta>}
       </Head>
       <ThemeProvider theme={theme}>
-        <CssBaseline/>
+        <CssBaseline />
         <AppBar position="static" className={styles.navbar}>
           <Toolbar>
             <NextLink href="/" passHref>
@@ -73,13 +73,22 @@ export default function Layout({ title, description, children }) {
             </NextLink>
             <div className={styles.grow}></div>
             <div>
-              <MaterialUISwimych checked={darkMode} onChange={darkModeChangeHandler}></MaterialUISwimych>
-            <NextLink href="/cart" passHref>
-              <Link>Carrinho</Link>
-            </NextLink>
-            <NextLink href="/login" passHref>
-              <Link>Login</Link>
-            </NextLink>
+              <MaterialUISwimych
+                checked={darkMode}
+                onChange={darkModeChangeHandler}
+              ></MaterialUISwimych>
+              <NextLink href="/cart" passHref>
+                <Link>
+                  {cart.cartItems.length > 0 ? (
+                    <Badge color="secondary" badgeContent={cart.cartItems.length}>Carrinho</Badge>
+                  ) : (
+                    'Carrinho'
+                  )}
+                </Link>
+              </NextLink>
+              <NextLink href="/login" passHref>
+                <Link>Login</Link>
+              </NextLink>
             </div>
           </Toolbar>
         </AppBar>
