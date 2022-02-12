@@ -12,9 +12,28 @@ import {
 import NextLink from 'next/link'
 import db from '../utils/db';
 import Product from '../models/Products';
+import axios from 'axios';
+import { useContext } from 'react';
+import { Store } from '../utils/Store';
+import { useRouter } from 'next/router';
 
 export default function Home(props) {
+  const router = useRouter();
+  const {dispatch, state} = useContext(Store)
   const {products} = props;
+
+  const addToCartHandler = async (product) => {
+    const { data } = await axios.get(`/api/products/${product._id}`);
+    if (data.countInStock <= 0) {
+      window.alert('Produto sem Estoque');
+      return;
+    }
+    const existItem = state.cart.cartItems.find(x=>x.id === product._id);
+    const quantity = existItem ? existItem.quantity + 1 : 1;
+    dispatch({ type: 'CART_ADD_ITEM', payload: { ...product, quantity } });
+    router.push('/cart')
+  };
+
   return (
     <Layout>
       <div>
@@ -38,7 +57,7 @@ export default function Home(props) {
  
                 <CardActions>
                   <Typography>R$ {product.price}</Typography>
-                  <Button size="large" color="primary" variant="contained" disableElevation >
+                  <Button size="large" color="primary" variant="contained" disableElevation onClick={()=>addToCartHandler(product)}>
                     Adicionar ao carrinho
                   </Button>
                 </CardActions>

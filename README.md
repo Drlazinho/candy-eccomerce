@@ -32,6 +32,8 @@ Aplicação em Desenvolvimento - Construíndo um site de vendas de doces, brigad
     - `install next-connect` - método pequeno de rotas e middleware, usado frequentemente em rotas API. [Link](https://www.npmjs.com/package/next-connect)
 - [X] Buscar Produto da API
 - [X] Adicionar Função de adicionar o produto no carrinho. 
+- [x] Função de remover itens
+- [ ] Bug do contador (Necessita de correção)????
 
 ## Getting Started
 
