@@ -1,4 +1,4 @@
-# Candy Eccomerce
+# Candy Ecommerce
 
 Aplicação em Desenvolvimento - Construíndo um site de vendas de doces, brigadeiros e trufas, para futuro negócio da família.
 
